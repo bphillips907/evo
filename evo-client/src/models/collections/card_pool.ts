@@ -2,7 +2,7 @@ import { DefaultFacingOnAddType } from "../../types/game/default_facing_on_add"
 import { Card } from "../game_components/card"
 
 export class CardPool {
-    name:  | u
+    name: string
     cards: Card[]
     defaultFacingOnAdd: DefaultFacingOnAddType
 

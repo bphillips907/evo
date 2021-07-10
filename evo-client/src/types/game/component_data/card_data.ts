@@ -1,5 +1,6 @@
-import { CardType } from "./card_type";
-import { Trait } from "./trait";
+import { CardType } from "../card_type"
+import { Trait } from "../trait"
+import { isValidLocationData } from "./location_data"
 
 export interface CardData {
     type: CardType
@@ -17,6 +18,9 @@ export function isValidCardData(cardData: Partial<CardData>): cardData is CardDa
         isValid = false
     }
     if (testCardData.name === undefined) {
+        isValid = false
+    }
+    if (testCardData.traits === undefined) {
         isValid = false
     }
 

@@ -1,5 +1,5 @@
-import { CardData } from "../../../types/game/card_data";
 import { CardType } from "../../../types/game/card_type";
+import { CardData } from "../../../types/game/component_data/card_data";
 import { Trait } from "../../../types/game/trait";
 import { CardFactory } from "./CardFactory";
 
@@ -11,57 +11,63 @@ export class FloraFactory extends CardFactory {
         })
     }
 
-    tree = () => {
+    tree = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Tree",
             traits: [Trait.SIZE],
             text: undefined
         }
+        return this
     }
 
-    nut = () => {
+    nut = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Nut",
             traits: [Trait.STRENGTH],
             text: undefined
         }
+        return this
     }
 
-    grass = () => {
+    grass = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Grass",
             traits: [Trait.SPEED],
             text: undefined
         }
+        return this
     }
 
-    root = () => {
+    root = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Root",
             traits: [Trait.TOUGHNESS],
             text: undefined
         }
+        return this
     }
 
-    fungus = () => {
+    fungus = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Fungus",
             traits: [Trait.ENDURANCE],
             text: undefined
         }
+        return this
     }
 
-    berry = () => {
+    berry = (): FloraFactory => {
         this.cardData = {
             ...this.cardData,
             name: "Berry",
             traits: [Trait.AGILITY],
             text: undefined
         }
+        return this
     }
 }

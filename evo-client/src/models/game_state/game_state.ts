@@ -1,13 +1,13 @@
+import { GameObject } from "../game_object";
 import { ImmutableGameTable } from "../immutable_game_table";
 import { GameStateChange } from "./game_state_changes/game_state_change";
 
-export class GameState {
-    id: string
+export class GameState extends GameObject {
     stateJustification: GameStateChange
     table: ImmutableGameTable
 
     constructor(previousState: ImmutableGameTable, stateChange: GameStateChange) {
-        this.id = "1" // FIXME new UUID();
+        super()
         this.stateJustification = stateChange
         this.table = previousState.emit(stateChange);
     }

@@ -1,6 +1,6 @@
 import { Card } from "../../../models/game_components/card"
-import { CardData, isValidCardData } from "../../../types/game/card_data"
 import { CardType } from "../../../types/game/card_type"
+import { CardData, isValidCardData } from "../../../types/game/component_data/card_data"
 import { Trait } from "../../../types/game/trait"
 import { FaunaFactory } from "./FaunaFactory"
 import { FloraFactory } from "./FloraFactory"
@@ -10,10 +10,13 @@ export class CardFactory  {
     cardData:  Partial<CardData>
 
     constructor(cardData:  Partial<CardData> = {}) {
-        this.cardData = cardData
+        this.cardData = {
+            traits: [],
+            ...cardData
+        }
     }
 
-    build = (): Card => {
+    build = (): Card => {        
         if (!isValidCardData(this.cardData)) {
             throw new Error(`Card Data is incomplete: ${this.cardData}`)
         }

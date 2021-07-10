@@ -1,4 +1,4 @@
-import { TokenData } from "../../types/game/token_data"
+import { TokenData } from "../../types/game/component_data/token_data"
 import { GameComponent } from "./game_component"
 
 export class Token extends GameComponent<TokenData> {

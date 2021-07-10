@@ -1,15 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
-import { Player } from "../player"
+import { GameObject } from "../game_object"
 
-export abstract class GameComponent<T> {
-    uuid: string
+export abstract class GameComponent<T> extends GameObject {
     data: T
-    controller: Player | undefined
 
-    constructor(data: T, owner?: Player) {
-        this.uuid = uuidv4()
+    constructor(data: T) {
+        super()
         this.data = data
-        this.controller = owner
     }
 }
 

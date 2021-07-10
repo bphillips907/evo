@@ -1,8 +1,9 @@
 import { SpeciesType } from "../types/game/species_type";
 import { CardPool } from "./collections/card_pool";
 import { TokenPool } from "./collections/token_pool";
+import { GameObject } from "./game_object";
 
-export class Species {
+export class Species extends GameObject {
     name: string
     species: SpeciesType
     genome: CardPool
@@ -13,6 +14,7 @@ export class Species {
     survivalTokens: TokenPool
 
     constructor(name: string, species: SpeciesType) {
+        super()
         this.name = name,
         this.species = species
         this.genome = new CardPool(`${name}'s Genome Deck`)

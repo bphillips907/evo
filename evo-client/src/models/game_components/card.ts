@@ -1,6 +1,5 @@
-import { CardData } from "../../types/game/card_data"
 import { GameComponent } from "./game_component"
-import { Player } from "../player"
+import { CardData } from "../../types/game/component_data/card_data"
 
 export class Card extends GameComponent<CardData> {
     faceUp: boolean
