@@ -1,70 +1,55 @@
-import { Location } from "../../models/game_components/location"
-import { isValidLocationData, LocationData } from "../../types/game/component_data/location_data"
+import { Location } from "../../models/location"
 import { Trait } from "../../types/game/trait"
 
 export class LocationFactory {
-    locationData: Partial<LocationData>
+    name: string | undefined
+    traits: Trait[]
 
-    constructor(locationData: Partial<LocationData> = {}) {
-        this.locationData = {
-            traits: [],
-            ...locationData
-        }
+    constructor() {
+        this.traits = []
     }
 
     build = (): Location => {
-        if (!isValidLocationData(this.locationData)) {
-            throw new Error(`Location data is incomplete: ${this.locationData}`)
+        if (this.name === undefined) {
+            throw new Error("Name is required")
         }
 
-        return new Location(this.locationData)
+        return new Location(this.name, this.traits)
     }
 
     lake = (): LocationFactory => {
-        this.locationData = {
-            name: "Lake",
-            traits: [Trait.SIZE]
-        }
+        this.name = "Lake"
+        this.traits = [Trait.SIZE]
         return this
     }
 
     mountain = (): LocationFactory => {
-        this.locationData = {
-            name: "Mountain",
-            traits: [Trait.STRENGTH]
-        }
+        this.name = "Mountain"
+        this.traits = [Trait.STRENGTH]
         return this
     }
 
     field = (): LocationFactory => {
-        this.locationData = {
-            name: "Field",
-            traits: [Trait.SPEED]
-        }
+        this.name = "Field"
+        this.traits = [Trait.SPEED]
         return this
     }
 
     swamp = (): LocationFactory => {
-        this.locationData = {
-            name: "Swamp",
-            traits: [Trait.TOUGHNESS]
-        }
+        this.name = "Swamp"
+        this.traits = [Trait.TOUGHNESS]
         return this
     }
 
     desert = (): LocationFactory => {
-        this.locationData = {
-            name: "Desert",
-            traits: [Trait.ENDURANCE]
-        }
+        this.name = "Desert"
+        this.traits = [Trait.ENDURANCE]
         return this
     }
 
     forest = (): LocationFactory => {
-        this.locationData = {
-            name: "Forest",
-            traits: [Trait.AGILITY]
-        }
+        this.name = "Forest"
+        this.traits = [Trait.AGILITY]
         return this
     }
 }

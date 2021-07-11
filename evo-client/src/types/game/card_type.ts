@@ -1,6 +1,6 @@
 export enum CardType {
-    TRAIT,
-    ADAPTATION,
-    FLORA,
-    FAUNA
+    TRAIT = "Trait",
+    ADAPTATION = "Adaptation",
+    FLORA = "Flora",
+    FAUNA = "Fauna"
 }

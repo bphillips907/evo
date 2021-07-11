@@ -1,5 +1,6 @@
 import { SpeciesType } from "../../types/game/species_type"
 import { Token } from "../game_components/token"
+import { CommonTokenPool } from "./common_token_pool"
 
 
 export class TokenPool {
@@ -9,15 +10,24 @@ export class TokenPool {
         this.tokens = tokens
     }
 
-    add = (token: Token): number => {
-        return this.tokens.push(token)
+    add(...tokens: Token[]): void {
+        this.tokens.push(...tokens)
     }
 
-    remove = (token: Token): boolean => {
+    addFromCommonPool(source: CommonTokenPool, count=1) {
+        for(let i=0; i<count; i++) {
+            const token = source.removeOne()
+            if (token) {
+                this.add(token)
+            }
+        }
+    }
+
+    remove(token: Token): boolean {
         return this.removeByUuid(token.uuid)
     }
 
-    removeByUuid = (uuidToRemove: string): boolean => {
+    removeByUuid(uuidToRemove: string): boolean {
         let modified = false
         const newTokens = this.tokens.filter(({uuid}) => {
             modified = modified || uuid === uuidToRemove
@@ -28,13 +38,13 @@ export class TokenPool {
         return modified 
     }
 
-    removeAll = (): Token[] => {
+    removeAll (): Token[] {
         const removed = [...this.tokens]
         this.tokens = []
         return removed
     }
 
-    removeAllBySpecies = (speciesToRemove: SpeciesType): Token[] => {
+    removeAllBySpecies(speciesToRemove: SpeciesType): Token[] {
         const removed: Token[] = []
         const remaining: Token[] = []
         this.tokens.forEach(token => {
@@ -48,7 +58,7 @@ export class TokenPool {
         return removed
     }
 
-    standUpAll = () => {
+    standUpAll() {
         this.tokens.forEach(token => {
             token.standUp()
         })

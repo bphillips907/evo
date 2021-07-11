@@ -1,12 +1,11 @@
 import { CardType } from "../card_type"
 import { Trait } from "../trait"
-import { isValidLocationData } from "./location_data"
 
 export interface CardData {
     type: CardType
     name: string
     traits: Trait[]
-    text: string | undefined
+    text?: string
 }
 
 // typeGuard

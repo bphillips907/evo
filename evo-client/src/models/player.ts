@@ -1,22 +1,27 @@
-import { CardPool } from "./collections/card_pool";
-import { Token } from "./game_components/token";
+import { CardPool } from "./pools/card_pool";
 import { Species } from "./species";
 import { GameObject } from "./game_object";
 
 export class Player extends GameObject {
     name: string
-    currentSpecies: Species | undefined
-    activePopulation: Token | undefined
+    activeSpecies: Species | undefined
+    activePopulationUuid: string | undefined
     hand: CardPool
     score: number
 
     constructor(name: string) {
         super()
         this.name = name
-        this.currentSpecies = undefined
-        this.activePopulation = undefined
+        this.activeSpecies = undefined
+        this.activePopulationUuid = undefined
         this.hand = new CardPool(`${name}'s Hand`)
         this.score = 0
+    }
+
+    drawFromSpeciesGenomeDeck = (count=1) => {
+        if (this.activeSpecies?.genome) {
+            this.hand.drawFrom(this.activeSpecies?.genome, count)
+        }
     }
     
 }

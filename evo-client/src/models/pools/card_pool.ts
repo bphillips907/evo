@@ -1,4 +1,5 @@
 import { DefaultFacingOnAddType } from "../../types/game/default_facing_on_add"
+import shuffle from "../../util/arrays/shuffle"
 import { Card } from "../game_components/card"
 
 export class CardPool {
@@ -7,23 +8,20 @@ export class CardPool {
     defaultFacingOnAdd: DefaultFacingOnAddType
 
     constructor(
-        name: string, 
-        cards: Card[] = [], 
+        name: string,
+        cards: Card[] = [],
         defaultFacingOnAdd: DefaultFacingOnAddType = DefaultFacingOnAddType.UNCHANGED
     ) {
         this.name = name
-        this.cards = cards
+        this.cards = []
         this.defaultFacingOnAdd = defaultFacingOnAdd
+
+        // Handle initial card facing
+        cards.forEach(card => this.addCardToBottom(card))
     }
 
-    shuffle = (): CardPool => {
-        const shuffledCards = [...this.cards]
-        for (let i = this.cards.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
-        }
-        this.cards = shuffledCards
-        return this
+    shuffle = () => {
+        this.cards = shuffle(this.cards)
     }
 
     addCardToTop = (card: Card, faceup?: boolean): void => {
@@ -42,17 +40,23 @@ export class CardPool {
         throw new Error("Cannot draw from an empty card pool")
     }
 
+    drawFrom = (sourcePool: CardPool, count = 1) => {
+        for (let i = 0; i < count; i++) {
+            this.addCardToTop(sourcePool.draw())
+        }
+    }
+
     remove = (card: Card): boolean => {
         return this.removeByUuid(card.uuid)
     }
 
     removeByUuid = (uuidToRemove: string): boolean => {
         let modified = false
-        const newCards = this.cards.filter(({uuid}) => {
+        const newCards = this.cards.filter(({ uuid }) => {
             modified = modified || uuid === uuidToRemove
             return uuid !== uuidToRemove
         })
-        
+
         this.cards = newCards
         return modified
     }
@@ -62,7 +66,7 @@ export class CardPool {
         return this.cards.length;
     }
 
-    canDraw = () : boolean => {
+    canDraw = (): boolean => {
         return this.size() > 0;
     }
 

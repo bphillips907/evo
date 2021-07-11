@@ -1,16 +1,16 @@
 import { GameObject } from "../game_object";
-import { ImmutableGameTable } from "../immutable_game_table";
-import { GameStateChange } from "./game_state_changes/game_state_change";
+import { GameStateChange } from "./game_state_recipes/game_state_change";
+import { Game } from "../game";
 
 export class GameState extends GameObject {
     stateJustification: GameStateChange
-    table: ImmutableGameTable
+    table: Game
 
-    constructor(previousState: ImmutableGameTable, stateChange: GameStateChange) {
+    constructor(previousState: Game, stateChange: GameStateChange) {
         super()
         this.stateJustification = stateChange
-        this.table = previousState.emit(stateChange);
+        this.table = stateChange.produceRecipe(previousState);
     }
 
-    getTable = (): ImmutableGameTable => this.table;
+    getTable = (): Game => this.table;
 }

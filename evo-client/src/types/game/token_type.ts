@@ -1,4 +1,4 @@
 export enum TokenType {
-    POPULATION,
-    SURVIVAL
+    POPULATION = "Population",
+    SURVIVAL = "Survival"
 }
